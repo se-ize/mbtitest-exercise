@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body class="container">
+    <article class="start">
+        <h1 class="mt-5 text-center">나랑 꼭 닮은 세렝게티 동물은?</h1>
+        <button type="button" class="btn btn-primary mt-5" onclick='start();'>테스트 시작하기</button>
+    </article>
+    <article class="question">
+        <div class="progress mt-5">
+            <div class="progress-bar" role="progressbar" style="width: calc(100/12*3%)"></div>
+          </div>
+        <h2 id="title" class="text-cente mt-5">문제</h2>
+        <input id="type" type="hidden" value="EI">
+        <button id="A" type="button" class="btn btn-primary mt-5">Primary</button>
+        <button id="B" type="button" class="btn btn-primary mt-5">Primary</button>
+    </article>
+    <article class="result">
+        <img id="img" class="rounded-circle mt-5" src="lion.jpg" alt="animal">
+        <h2 id="animal" class="text-center mt-5">동물이름</h2>
+        <h3 id="explain" class="text-center mt-5">설명</h3>
+    </article>
+    <input type="hidden" id="EI" value="0">
+    <input type="hidden" id="SN" value="0">
+    <input type="hidden" id="TF" value="0">
+    <input type="hidden" id="JP" value="0">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    <script>
+        var num = 1;
+        var q = {
+            1: {"title": "문제 1번", "type": "EI", "A": "E", "B" : "I"},
+            2: {"title": "문제 2번", "type": "EI", "A": "E", "B" : "I"},
+            3: {"title": "문제 3번", "type": "EI", "A": "E", "B" : "I"},
+            4: {"title": "문제 4번", "type": "SN", "A": "S", "B" : "N"},
+            5: {"title": "문제 5번", "type": "SN", "A": "S", "B" : "N"},
+            6: {"title": "문제 6번", "type": "SN", "A": "S", "B" : "N"},
+            7: {"title": "문제 7번", "type": "TF", "A": "T", "B" : "F"},
+            8: {"title": "문제 8번", "type": "TF", "A": "T", "B" : "F"},
+            9: {"title": "문제 9번", "type": "TF", "A": "T", "B" : "F"},
+            10: {"title": "문제 10번", "type": "JP", "A": "J", "B" : "P"},
+            11: {"title": "문제 11번", "type": "JP", "A": "J", "B" : "P"},
+            12: {"title": "문제 12번", "type": "JP", "A": "J", "B" : "P"}
+        }
+        var result = {
+            "ENTJ": {"animal": "사자", "explain": "유아독존 정글의 왕 사자, 자기애가 강한 팀플의 왕", "img": "lion.jpg"},
+            "ESTJ": {"animal": "늑대", "explain": "고독하고 이성적인 늑대, 절대 싸워서 지지 않는 계획주의자", "img": "wolf.jpg"},
+            "ENTP": {"animal": "말", "explain": "어디로 튈 지 모르는 탱탱볼, 달리는 야생마", "img": "horse.jpg"},
+            "ESTP": {"animal": "하이에나", "explain": "날 쎄고 기회를 잘 잡는 하이에나, 행동력 빠른 재주꾼", "img": "hyena.jpg"},
+            "ENFJ": {"animal": "강아지", "explain": "애정과 활력이 넘치는 강아지, 에너지 넘치는 핵인싸", "img": "dog.jpg"},
+            "ESFJ": {"animal": "코끼리", "explain": "똑똑하고 남을 잘 챙기는 코끼리, 눈치가 빠른 상담가", "img": "elephant.jpg"},
+            "ENFP": {"animal": "돌고래", "explain": "사회성이 좋고 창의적인 돌고래, 도전적이고 사람 좋아하는 이 구역의 인싸", "img": "dolphin.jpg"},
+            "ESFP": {"animal": "카피바라", "explain": "다가가기 어려워 보이지만 알고 보면 누구보다 오픈 마인드라 사람들과 쉽게 친해지는 카피바라", "img": "capybara.jpg"},
+            "INTJ": {"animal": "호랑이", "explain": "홀로 뛰어다니는 사냥꾼 호랑이, 의지가 강하고 독립적인 이 구역의 마이웨이", "img": "tiger.jpg"},
+            "ISTJ": {"animal": "거북이", "explain": "느리지만 강인한 거북이, 보수적인 책임감 왕", "img": "tutle.jpg"},
+            "INTP": {"animal": "고양이", "explain": "소리 없이 강한 고양이, 논리적이고 혼자가 좋은 고독가", "img": "cat.jpg"},
+            "ISTP": {"animal": "뱀", "explain": "말이 없고 예측 불가능한 뱀, 과묵하지만 적응이 빨라 이 구역의 적응 왕", "img": "snake.jpg"},
+            "INFJ": {"animal": "랫서팬더", "explain": "흔하지 않고 매력적인 랫서팬더, 독특하고 희귀한 유니크 왕", "img": "redpanda.jpg"},
+            "ISFJ": {"animal": "코뿔소", "explain": "온화하지만 방어적인 코뿔소, 공감을 잘하는 원칙주의자", "img": "rhino.jpg"},
+            "INFP": {"animal": "나무늘보", "explain": "텐션이 높게 놀다가도 집에만 가면 연락두절 누워있느라 핸드폰 방치하는 나무늘보", "img": "sloth.jpg"},
+            "ISFP": {"animal": "미어캣", "explain": "잠이 많고 느릿한 미어캣, 순둥한 집순이", "img": "meerkat.jpg"}
+        }
+        function start() {
+            $(".start").hide();
+            $(".question").show();
+            next();
+        }
+        $("#A").click(function(){
+            var type = $("#type").val();
+            var preValue = $("#" + type).val();
+            $("#" + type).val(parseInt(preValue) + 1);
+            next();
+        });
+        $("#B").click(function(){
+            next();
+        });
+        function next() {
+            if (num == 13) {
+                $(".question").hide();
+                $(".result").show();
+                var mbti = "";
+                ($("#EI").val() < 2) ? mbti += "I" : mbti = mbti + "E";
+                ($("#SN").val() < 2) ? mbti += "N" : mbti = mbti + "S";
+                ($("#TF").val() < 2) ? mbti += "F" : mbti = mbti + "T";
+                ($("#JP").val() < 2) ? mbti += "P" : mbti = mbti + "J";
+                alert(mbti);
+                $("#animal").html(result[mbti]["animal"]);
+                $("#explain").html(result[mbti]["explain"]);
+                $("#img").attr("src", result[mbti]["img"]);
+            } else {
+                $(".progress-bar").attr('style','width: calc(100/12*' + num + '%)');
+                $("#title").html(q[num]["title"]);
+                $("#type").val(q[num]["type"]);
+                $("#A").html(q[num]["A"]);
+                $("#B").html(q[num]["B"]);
+                num++;
+            }
+        }
+    </script>
+</body>
+</html>
